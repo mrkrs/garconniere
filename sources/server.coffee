@@ -7,6 +7,8 @@ basic = auth({
   authList : ['garconniere:wesh']
 })
 
+_connected = 0
+
 httpServer = require('http').createServer( (request, response) ->
 
   basic.apply(request, response, (username) ->
@@ -17,6 +19,35 @@ httpServer = require('http').createServer( (request, response) ->
 
 nowjs    = require("now");
 everyone = nowjs.initialize(httpServer);
+
+nowjs.on('connect', (d) ->
+	_connected += 1
+	if everyone.now.connected
+		everyone.now.connected(_connected)
+)
+
+nowjs.on('disconnect', (d) ->
+	_connected -= 1
+	if everyone.now.connected
+		everyone.now.connected(_connected)
+	everyone.now.disconnetedUser {user:@now.user}
+)
+
+everyone.now.validUserName = (data) ->
+
+	_data = {user:data}
+
+	@now.acceptUserName( _data )
+	everyone.now.newUser( _data )
+
+	return 
+
+everyone.now.askConnected = () =>
+
+	everyone.now.connected(_connected)
+
+	return
+
 
 everyone.now.postMessage = (data) =>
 

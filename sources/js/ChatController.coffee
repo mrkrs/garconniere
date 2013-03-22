@@ -17,7 +17,23 @@ class ChatController
 
 		)
 
+		$('#send').on('click', (d) =>
+
+			_content = $('#input input').val()
+			@onPost({user:@me, content:_content})
+			$('#input input').val("")
+
+		)
+
 		return @
+
+	onAlert: (data) =>
+
+		_alert = new Alert(data)
+
+		console.log _alert
+
+		@chat.append(_alert.html)
 
 	onReception: (data) =>
 

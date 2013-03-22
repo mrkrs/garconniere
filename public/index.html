@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
@@ -23,7 +24,7 @@
 
         <div id="login">
 
-            <img src="img/logo.png">
+            <img src="img/logo-min.png">
 
             <div id="title">
                 GARCONNIERE
@@ -34,6 +35,10 @@
         </div>
 
         <div id="contents">
+
+            <div id="connected">
+                client : 0
+            </div>
 
             <div id="logo">
                 GARCONNIERE
@@ -235,39 +240,80 @@
 
         <script src="js/app/ChatController.js"></script>
         <script src="js/app/Message.js"></script>
+        <script src="js/app/Alert.js"></script>
 
         <script>
 
-            _width = $(window).width();
-            _height = $(window).height();
+            $(function() {
 
-            $('#chat').css('height', (_height-88)+'px' )
+                $(window).resize(function() {
 
-            chat = new ChatController()
-            // chat.onReception({user:"Boris", content:"Ca va morray ?"})
+                    _width = $(window).width();
+                    _height = $(window).height();
 
-            now.receiveMessage = function (data) {
-                chat.onReception( data )
-            }
+                    $('#chat').css('height', (_height-88)+'px' )
 
-            $('#login input').on('keypress', function(e) {
-                if(e.charCode === 13) {
-                    chat.me = $('#login input').val()
-                    $('#login').css('display', 'none')
+                })
+
+                _width = $(window).width();
+                _height = $(window).height();
+
+                $('#chat').css('height', (_height-88)+'px' )
+
+                chat = new ChatController()
+                // chat.onReception({user:"Boris", content:"Ca va morray ?"})
+
+                now.receiveMessage = function (data) {
+                    chat.onReception( data )
                 }
+
+                now.ready( function() {
+                    now.askConnected();
+                })
+
+                // now.onAlert( (data) =>
+                //     chat.onAlert(data)
+                // )
+
+                now.connected = function (value) {
+                    $('#connected').text('client : '+value)
+                }
+
+                $('#login input').on('keypress', function(e) {
+                    if(e.charCode === 13) {
+                        now.validUserName( $('#login input').val() )
+                    }
+                })
+
+                now.newUser = function(data) {
+                    data.class = 'connect'
+                    chat.onAlert(data);
+                }
+
+                now.disconnetedUser = function(data) {
+                    data.class = 'disconnect'
+                    chat.onAlert(data);
+                }
+
+                now.acceptUserName = function(data) {
+                    chat.me = data.user;
+                    $('#login').css('display', 'none');
+                    now.user = data.user;
+                }
+
+                users = ['Nicolas', 'Thibault', 'Boris', 'Thomas', 'Antoine'];
+
+                // setInterval(function() {
+
+                //     var index = Math.round(Math.random() * (users.length-1));
+                //     var _user = users[ index ];
+                //     var _content = LoremIpsum.sentenceFragment();
+
+                //     chat.onPost({user:_user, content:_content})
+
+                // }, 500);                
+
             })
-
-            users = ['Nicolas', 'Thibault', 'Boris', 'Thomas', 'Antoine'];
-
-            setInterval(function() {
-
-                var index = Math.round(Math.random() * (users.length-1));
-                var _user = users[ index ];
-                var _content = LoremIpsum.sentenceFragment();
-
-                // chat.onPost({user:_user, content:_content})
-
-            }, 500);
 
 
         </script>

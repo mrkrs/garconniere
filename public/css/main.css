@@ -106,6 +106,15 @@ body {
 
 /*---*/
 
+#connected {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    right: 0px;
+    font-size: 10px;
+    opacity: 0.5;
+}
+
 #login {
     position: absolute;
     width: 100%;
@@ -269,7 +278,7 @@ body {
             opacity: 0.5;
         }
 
-        #contents #chat .alert.disconnet .user {            
+        #contents #chat .alert.disconnect .user {            
             background-color: #ED1D24;
             color: white;
             opacity: 0.5;
