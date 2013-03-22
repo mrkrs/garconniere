@@ -4,7 +4,7 @@ redis  = require("redis")
 auth = require("http-auth")
 basic = auth({
   authRealm: "Metropolitain.io",
-  authList : ['dataveyes:datadatadata']
+  authList : ['garconniere:wesh']
 })
 
 httpServer = require('http').createServer( (request, response) ->
