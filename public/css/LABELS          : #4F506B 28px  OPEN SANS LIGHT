@@ -1,0 +1,11 @@
+LABELS          : #4F506B 28px  OPEN SANS LIGHT
+WOD NAME        : #087BE8 27px  OPEN SANS BOLD
+WOD TYPE        : #8F8F9C 26px  OPEN SANS BOLD
+WOD EXERCICE    : //      //    //   //   // 
+    NORMAL      : #8F8F9C 26px  OPEN SANS LIGHT
+WOD TIME        : #FFFFFF 100px OPEN SANS BOLD
+WORLD RANKING   : #4F506B 20px  OPEN SANS LIGHT
+NBR LIKE   	    : #007EE1 27px  OPEN SANS NOMBRE : BOLD / "likes" -> light
+COMMENT         :  
+		@       : #007EE1 27px  OPEN SANS BOLD
+		content : #47474D 27px  OPEN SANS LIGHT
